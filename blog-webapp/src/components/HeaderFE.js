@@ -24,7 +24,7 @@ export default function HeaderFE() {
 
                         <Nav className='col-md-4 contact'>
                             <Nav.Link href="#home" className='contact-detail'> <ion-icon name="business-outline"></ion-icon>  Liên hệ</Nav.Link>
-                            <Nav.Link href="#home" className='contact-detail'> <ion-icon name="people-outline"></ion-icon>  Về chúng tôi</Nav.Link>
+                            <Nav.Link href="#about" className='about'> <ion-icon name="people-outline"></ion-icon>  Về chúng tôi</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
