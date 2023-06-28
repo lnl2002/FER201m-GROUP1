@@ -1,68 +1,122 @@
-import DefaultLayout from "../layouts/DefaultLayout";
-import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-export default function Home() {
-    const [category, setCategory] = useState([]);
-    const [user, setUser] = useState([]);
-    const [feedback, setFeedback] = useState([]);
-    const [p, setBlog] = useState([]);
-    useEffect(() => {
-        fetch("http://localhost:9997/blogs")
-          .then((resp) => resp.json())
-          .then((data) => {
-            setBlog(data);
-          })
-          .catch((err) => {
-            console.log(err.message);
-          });
-      }, []);
-      useEffect(() => {
-        fetch("http://localhost:9997/categories")
-          .then((resp) => resp.json())
-          .then((data) => {
-            setCategory(data);
-          })
-          .catch((err) => {
-            console.log(err.message);
-          });
-      }, []);
-      useEffect(() => {
-        fetch("http://localhost:9997/users")
-          .then((resp) => resp.json())
-          .then((data) => {
-            setUser(data);
-          })
-          .catch((err) => {
-            console.log(err.message);
-          });
-      }, []);
-      useEffect(() => {
-        fetch("http://localhost:9997/feedbacks")
-          .then((resp) => resp.json())
-          .then((data) => {
-            setFeedback(data);
-          })
-          .catch((err) => {
-            console.log(err.message);
-          });
-      }, []);
-    return (
-        <DefaultLayout>
-            {/* Có thể xóa container đi để thêm content vào đấy */}
-            <Container fluid >
-                <div className="test" style={{height: '56vh'}}>Middle</div>
-                <tbody>
-                {p.map((p) => (
-                  <tr key={p.id}>
-                    
-                    <td>
-                      <Link to={"/blogs/detail/" + p.id}>{p.title}</Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Container>
-        </DefaultLayout>
-    )
-}
+import React from 'react';
+import { Container, Row, Col, Carousel } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import DefaultLayout from '../layouts/DefaultLayout';
+
+const Home = () => {
+  // Dữ liệu các món mới nhất
+  const newestRecipes = [
+    {
+      id: 1,
+      name: 'Món mới 1',
+      image: 'path/to/newest_recipe_1.jpg',
+      description: 'Mô tả công thức 1',
+    },
+    {
+      id: 2,
+      name: 'Món mới 2',
+      image: 'path/to/newest_recipe_2.jpg',
+      description: 'Mô tả công thức 2',
+    },
+    // Thêm các món mới khác tương tự
+  ];
+
+  // Dữ liệu các món hot nhất
+  const popularRecipes = [
+    {
+      id: 1,
+      name: 'Món hot 1',
+      image: 'path/to/popular_recipe_1.jpg',
+      description: 'Mô tả công thức 1',
+    },
+    {
+      id: 2,
+      name: 'Món hot 2',
+      image: 'path/to/popular_recipe_2.jpg',
+      description: 'Mô tả công thức 2',
+    },
+    // Thêm các món hot khác tương tự
+  ];
+
+  // Dữ liệu các món lượt xem nhiều nhất
+  const trendingRecipes = [
+    {
+      id: 1,
+      name: 'Món hot 1',
+      image: 'path/to/trending_recipe_1.jpg',
+      description: 'Mô tả công thức 1',
+    },
+    {
+      id: 2,
+      name: 'Món hot 2',
+      image: 'path/to/trending_recipe_2.jpg',
+      description: 'Mô tả công thức 2',
+    },
+    // Thêm các món lượt xem nhiều khác tương tự
+  ];
+
+  return (
+    <DefaultLayout>
+    <Container>
+      <Row>
+        <Col>
+          <h1>Các món mới nhất</h1>
+          <Carousel>
+            {newestRecipes.map((recipe) => (
+              <Carousel.Item key={recipe.id}>
+                <Link to={`/recipe/${recipe.id}`}>
+                  <img className="d-block w-100" src={recipe.image} alt={recipe.name} />
+                  <Carousel.Caption>
+                    <h3>{recipe.name}</h3>
+                    <p>{recipe.description}</p>
+                  </Carousel.Caption>
+                </Link>
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <h1>Các món hot nhất</h1>
+          <Carousel>
+            {popularRecipes.map((recipe) => (
+              <Carousel.Item key={recipe.id}>
+                <Link to={`/recipe/${recipe.id}`}>
+                  <img className="d-block w-100" src={recipe.image} alt={recipe.name} />
+                  <Carousel.Caption>
+                    <h3>{recipe.name}</h3>
+                    <p>{recipe.description}</p>
+                  </Carousel.Caption>
+                </Link>
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <h1>Các món lượt xem nhiều nhất</h1>
+          <Carousel>
+            {trendingRecipes.map((recipe) => (
+              <Carousel.Item key={recipe.id}>
+                <Link to={`/recipe/${recipe.id}`}>
+                  <img className="d-block w-100" src={recipe.image} alt={recipe.name} />
+                  <Carousel.Caption>
+                    <h3>{recipe.name}</h3>
+                    <p>{recipe.description}</p>
+                  </Carousel.Caption>
+                </Link>
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        </Col>
+      </Row>
+    </Container>
+    </DefaultLayout>
+  );
+};
+
+export default Home;

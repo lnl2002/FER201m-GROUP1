@@ -1,0 +1,48 @@
+/* Đóng khung cho ô h2 */
+h2 {
+    border: 5px solid #d1d405;
+    padding: 10px;
+    border-radius: 30px;
+    display: inline-block;
+    box-sizing: border-box;
+    color: #fff;
+    margin: 45%; 
+    background-color: #d1d405;
+  }
+  
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+
+  p {   
+    line-height: 1.6;
+    font-size: 18px;
+  }
+  h3 {
+    font-size: 30px;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    font-family: 'Font Name', comfortaa;
+  }
+
+  .link-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .link-list a {
+    text-decoration: none;
+    color: #000;
+    margin: 0 10px; /* Khoảng cách giữa các liên kết */
+  }
+  
+  .link-list a:hover {
+    color: #f00;
+  }
+  
