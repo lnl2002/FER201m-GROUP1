@@ -1,1 +1,1 @@
-# FER201m-GROUP1
+npx # FER201m-GROUP1
