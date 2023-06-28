@@ -30,7 +30,7 @@ export default function FooterFE() {
                                     <ion-icon name="mail"></ion-icon>lamlnhe161656@fpt.edu.vn
                                 </p>
                                 <p>
-                                    <ion-icon name="rocket"></ion-icon>Made by <span style={{ fontWeight: '700px' }}>Group 2 - SE1718</span>
+                                    <ion-icon name="rocket"></ion-icon>Made by <span style={{ fontWeight: '700px' }}>Group 1 - SE1718</span>
                                 </p>
                             </div>
 
@@ -49,7 +49,7 @@ export default function FooterFE() {
                     </Col>
                 </Row>
             </Container>
-            <Container><div className="footer-footer">Copyright @ 2023 <span style={{ fontWeight: '700' }}>Group 2 - SE1718</span></div></Container>
+            <Container><div className="footer-footer">Copyright @ 2023 <span style={{ fontWeight: '700' }}>Group 1 - SE1718</span></div></Container>
         </Container>
     )
 }
