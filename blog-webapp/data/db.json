@@ -1,0 +1,91 @@
+{
+    "categories": [
+        {
+            "categoryId": 1,
+            "categoryName": "Subcategory 1"
+        },
+        {
+            "categoryId": 2,
+            "categoryName": "Subcategory 2"
+        },
+        {
+            "categoryId": 3,
+            "categoryName": "Subcategory 3"
+        }
+    ],
+    "blogs": [
+        {
+            "id": 1,
+            "title": "thịt lợn nướng",
+            "thumbnail": "thumbnail1.jpg",
+            "introduce": "Introduction to Blog 1",
+            "categoryId": 2,
+            "content": "fgsdgsdgsdgsdg",
+            "author": "Trương Trọng Hưng",
+            "time": "19:59 25/06/2023",
+            "feedbackId": 1,
+            "difficulty": "3/5",
+            "preparationTime": "20 phút",
+            "cookingTime": "30 phút",
+            "servingSize": "2 người",
+            "tableOfContents": " I. Nguyên liệu cần chuẩn bị làm thịt heo nướng giấy bạc<br />II. Cách thực hiện món thịt heo nướng giấy bạcSơ chế nguyên liệu<br />Cách thực hiện món thịt heo nướng giấy bạc<br />III. Bí quyết cho món thịt heo nướng giấy bạc ngon hơn<br />IV. Thành phẩm món thịt heo nướng giấy bạc đậm đà hương vị"
+        },
+        {
+            "id": 2,
+            "title": "gà quay",
+            "thumbnail": "thumbnail2.jpg",
+            "introduce": "Introduction to Blog 2",
+            "categoryId": 1,
+            "content": "Content of Blog 2",
+            "author": "Author 2",
+            "time": "2023-06-21 14:30:00",
+            "feedbackId": 2,
+            "difficulty": "Medium",
+            "preparationTime": "45 minutes",
+            "cookingTime": "1.5 hours",
+            "servingSize": "4 servings",
+            "tableOfContents": "Table of Contents for Blog 2"
+        }
+    ],
+    "users": [
+        {
+            "userId": 1,
+            "email": "user1@example.com",
+            "password": "password1",
+            "role": "Viewer"
+        },
+        {
+            "userId": 2,
+            "email": "user2@example.com",
+            "password": "password2",
+            "role": "Viewer"
+        },
+        {
+            "userId": 3,
+            "email": "user3@example.com",
+            "password": "password3",
+            "role": "Manager",
+            "name": "Manager Name",
+            "gender": "Female",
+            "phone": "1234567890",
+            "address": "Manager Address"
+        }
+        
+    ],
+    "feedbacks": [
+        {
+            "feedbackId": 1,
+            "userId": 1,
+            "blogId": 1,
+            "content": "Feedback content for Blog 1",
+            "rate": 4
+        },
+        {
+            "feedbackId": 2,
+            "userId": 2,
+            "blogId": 2,
+            "content": "Feedback content for Blog 2",
+            "rate": 5
+        }
+    ]
+}
