@@ -7,7 +7,6 @@ export default function DefaultLayout({className,children}) {
     return (
         <>
             <HeaderFE />
-            
             <div className= {className}>
                 {children}
             </div>

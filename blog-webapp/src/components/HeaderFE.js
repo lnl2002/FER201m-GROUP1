@@ -9,9 +9,9 @@ export default function HeaderFE() {
         <>
             <Navbar className='header' >
                 <Container>
-                <Link to="/" className='logo-container'>
-            <img src='assets/images/logo.png' alt='Bếp của Bố' />
-          </Link>
+                    <Link to="/" className='logo-container'>
+                        <img src='assets/images/logo.png' alt='Bếp của Bố' />
+                    </Link>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className='me-auto col-md-8'>
@@ -27,8 +27,10 @@ export default function HeaderFE() {
                         </Nav>
 
                         <Nav className='col-md-4 contact'>
-                        <Nav.Link href="/contact" className='contact-page'> <ion-icon name="business-outline"></ion-icon>  Liên hệ</Nav.Link>
-                         <Nav.Link as={Link} to="/about" className='contact-detail'><ion-icon name="people-outline"></ion-icon> Về chúng tôi  </Nav.Link>
+                            <Nav.Link href="/contact" className='contact-page contact-detail'> <ion-icon name="business-outline"></ion-icon>  Liên hệ</Nav.Link>
+                            <Nav.Link as={Link} to="/about" className='contact-detail'><ion-icon name="people-outline"></ion-icon> Về chúng tôi  </Nav.Link>
+                            <Nav.Link as={Link} to="/about" className='contact-detail'><ion-icon name="people-outline"></ion-icon> Đăng nhập </Nav.Link>
+                            <Nav.Link as={Link} to="/about" className='contact-detail'><ion-icon name="people-outline"></ion-icon> Đăng ký  </Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

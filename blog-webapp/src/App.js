@@ -4,8 +4,10 @@ import Home from '../src/screens/Home.js'
 import DetailBlog from './screens/DetailBlog';
 import ContactPage from './screens/ContactPage';
 import CopyrightPage from './screens/CopyrightPage';
-
 import AboutPage from './screens/AboutPage';
+import AddNewBlogManager from './screens/AddNewBlogManager';
+import FeedbackList from './screens/FeedbackList';
+
 function App() {
   return (
     <BrowserRouter>
@@ -15,6 +17,8 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/copyright" element={<CopyrightPage />} />
+        <Route path="/admin/add-new-blog-manager" element={<AddNewBlogManager />} />
+        <Route path="/admin/feedback" element={<FeedbackList />} />
       </Routes>
     </BrowserRouter>
   );

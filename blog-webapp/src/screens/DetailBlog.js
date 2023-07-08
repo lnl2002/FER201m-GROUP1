@@ -97,7 +97,6 @@ export default function DetailBlog() {
                             </h4>
                             <h5 style={{ color: 'red' }}>{p.difficulty}</h5>
                         </div>
-
                     </div>
 
 

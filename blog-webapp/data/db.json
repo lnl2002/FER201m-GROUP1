@@ -1,15 +1,15 @@
 {
     "categories": [
         {
-            "categoryId": 1,
+            "id": 1,
             "categoryName": "Subcategory 1"
         },
         {
-            "categoryId": 2,
+            "id": 2,
             "categoryName": "Subcategory 2"
         },
         {
-            "categoryId": 3,
+            "id": 3,
             "categoryName": "Subcategory 3"
         }
     ],
@@ -49,19 +49,19 @@
     ],
     "users": [
         {
-            "userId": 1,
+            "id": 1,
             "email": "user1@example.com",
             "password": "password1",
             "role": "Viewer"
         },
         {
-            "userId": 2,
+            "id": 2,
             "email": "user2@example.com",
             "password": "password2",
             "role": "Viewer"
         },
         {
-            "userId": 3,
+            "id": 3,
             "email": "user3@example.com",
             "password": "password3",
             "role": "Manager",
@@ -74,14 +74,14 @@
     ],
     "feedbacks": [
         {
-            "feedbackId": 1,
+            "id": 1,
             "userId": 1,
             "blogId": 1,
             "content": "Feedback content for Blog 1",
             "rate": 4
         },
         {
-            "feedbackId": 2,
+            "id": 2,
             "userId": 2,
             "blogId": 2,
             "content": "Feedback content for Blog 2",
