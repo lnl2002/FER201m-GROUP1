@@ -108,7 +108,13 @@ export default function DetailBlog() {
                             </Accordion.Item>
                         </Accordion>
                     </div>
-                    <div>
+                     <Accordion >
+                            <Accordion.Item >
+                                
+                                <Accordion.Body  dangerouslySetInnerHTML={{ __html: p.content }} />
+                            </Accordion.Item>
+                        </Accordion>
+                    {/* <div>
                         <div>
                             <p><b style={{ color: ' #f2b705' }}>Thịt heo nướng giấy bạc</b> là một trong những món ăn ngon mà lại đơn giản để các bạn có thể thực hiện tại nhà, nguyên liệu thịt heo có thể giúp cho chúng ta chế biến thành đa dạng các món ăn từ đơn giản cho đến phức tạp, hôm nay YummyDay sẽ giới thiệu đến các bạn cách thực hiện món thịt heo nướng giấy bạc thơm ngon và đậm đà hương vị. Hãy cùng theo dõi bài viết dưới đây nhé.</p>
                             <img style={{ paddingLeft: '25%' }} src="https://yummyday.vn/uploads/images/thit-heo-nuong-giay-bac-5.jpg" alt=""></img>
@@ -235,7 +241,7 @@ export default function DetailBlog() {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <>
                         <div className="row">
                             <div class="col-sm-6">
