@@ -1,5 +1,6 @@
 import AdminLeftBar from "../components/AdminLeftBar";
 import AdminHeader from "../components/AdminHeader";
+import '../styles/adminLayout.css'
 import { Container, Row, Col } from "react-bootstrap";
 
 export default function AdminLayout({ className, children }) {

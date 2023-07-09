@@ -1,88 +1,132 @@
 import AdminLayout from "../layouts/AdminLayout"
-import React from 'react';
-import DataTable from 'datatables.net-dt'
-import { Table } from "react-bootstrap";
+import React, { useState } from 'react';
+import '../styles/addNewBlogManager.css'
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 const AddNewBlogManager = () => {
-    new DataTable('table.display');
+    const [validated, setValidated] = useState(false);
+    const [users, setUsers]  = useState([]);
+    
+    const handleSubmit = (event) => {
+        const form = event.currentTarget;
+        if(form.checkValidity() === false){
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+            event.preventDefault();
+        }
+
+        setValidated(true);
+    }
+
+
     return (
         <AdminLayout>
-            <div className="content">
-                <Table id="" className={"display"}  style={{width: "100%"}} striped hover>
-                    <thead >
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Salary</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>$320,800</td>
-                        </tr>
-                        <tr>
-                            <td>Cedric Kelly</td>
-                            <td>Senior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>22</td>
-                            <td>$433,060</td>
-                        </tr>
-                        <tr>
-                            <td>Sonya Frost</td>
-                            <td>Software Engineer</td>
-                            <td>Edinburgh</td>
-                            <td>23</td>
-                            <td>$103,600</td>
-                        </tr>
-                        <tr>
-                            <td>Quinn Flynn</td>
-                            <td>Support Lead</td>
-                            <td>Edinburgh</td>
-                            <td>22</td>
-                            <td>$342,000</td>
-                        </tr>
-                        <tr>
-                            <td>Dai Rios</td>
-                            <td>Personnel Lead</td>
-                            <td>Edinburgh</td>
-                            <td>35</td>
-                            <td>$217,500</td>
-                        </tr>
-                        <tr>
-                            <td>Gavin Joyce</td>
-                            <td>Developer</td>
-                            <td>Edinburgh</td>
-                            <td>42</td>
-                            <td>$92,575</td>
-                        </tr>
-                        <tr>
-                            <td>Martena Mccray</td>
-                            <td>Post-Sales support</td>
-                            <td>Edinburgh</td>
-                            <td>46</td>
-                            <td>$324,050</td>
-                        </tr>
-                        <tr>
-                            <td>Jennifer Acosta</td>
-                            <td>Junior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>43</td>
-                            <td>$75,650</td>
-                        </tr>
-                        <tr>
-                            <td>Shad Decker</td>
-                            <td>Regional Director</td>
-                            <td>Edinburgh</td>
-                            <td>51</td>
-                            <td>$183,000</td>
-                        </tr>
-                    </tbody>
-                </Table>
+            <div className="content add-new-manager">
+                <Container fluid >
+                    <Container style={{ backgroundColor: "#fff" }} >
+                        <Form className="add-form" noValidate validated={validated} onSubmit={handleSubmit}>
+                            <Row>
+                                <Col md={6} >
+                                    <h3>Account information</h3>
+                                    <Form.Group className="form-input ">
+                                        <Form.Label>Email <span style={{ color: "red" }}>*</span></Form.Label>
+                                        <Form.Control
+                                            placeholder="Enter email"
+                                            type="email"
+                                            name="email"
+                                            required
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            Email was exsited
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                    <Form.Group className="form-input">
+                                        <Form.Label>Password <span style={{ color: "red" }}>*</span></Form.Label>
+                                        <Form.Control
+                                            placeholder="Enter password"
+                                            type="password"
+                                            name="password"
+                                            required
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            Password need more than 8 characters and include at least one capital letter
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                    <Form.Group className="form-input">
+                                        <Form.Label>Confirm password <span style={{ color: "red" }}>*</span></Form.Label>
+                                        <Form.Control
+                                            placeholder="Confirm password"
+                                            type="password"
+                                            name="repassword"
+                                            required
+                                        />
+                                    </Form.Group>
+                                    <Form.Control.Feedback type="invalid">
+                                        Do not match with password
+                                    </Form.Control.Feedback>
+                                </Col>
+                                <Col md={6}>
+                                    <h3>Manager information</h3>
+                                    <Form.Group className="form-input ">
+                                        <Form.Label>Name <span style={{ color: "red" }}>*</span></Form.Label>
+                                        <Form.Control
+                                            placeholder="Enter manager name"
+                                            name="name"
+                                            required
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            Can not empty
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                    <Form.Group className="form-input ">
+                                        <Form.Label>Gender <span style={{ color: "red" }}>*</span></Form.Label>
+                                        <Form.Check
+                                            type="radio"
+                                            label="Male"
+                                            name="gender"
+                                        />
+                                        <Form.Check
+                                            type="radio"
+                                            label="Female"
+                                            name="gender"
+                                        />
+
+                                    </Form.Group>
+                                    <Form.Group className="form-input">
+                                        <Form.Label>Phone <span style={{ color: "red" }}>*</span></Form.Label>
+                                        <Form.Control
+                                            placeholder="Enter phone"
+                                            type="text"
+                                            pattern="^0\d{9}"
+                                            required
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            Can not empty
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                    <Form.Group className="form-input">
+                                        <Form.Label>Address <span style={{ color: "red" }}>*</span></Form.Label>
+                                        <Form.Control
+                                            placeholder="Manager address"
+                                            type="text"
+                                            required
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            Can not empty
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col className="text-center">
+                                    <Button className="btn-danger btn-cancel" >Cancel</Button>
+                                    <Button className="btn-success" type="submit">Add</Button>
+                                </Col>
+                            </Row>
+
+                        </Form>
+                    </Container>
+                </Container>
             </div>
         </AdminLayout>
     );
