@@ -13,35 +13,34 @@ const AdminLeftBar = () => {
                 </div>
             </div>
             <div className='bar-body'>
-                <div className='bar-content'> 
+                <div className='bar-content'>
                     <div className='header-content'>
                         BLOG MANAGER
                     </div>
                     <div className='body-content'>
                         <ul className='p-0'>
-                            <li className='left-content'><ion-icon name="people-outline"></ion-icon><span>Manager List</span></li>
-                            <li className='left-content'><ion-icon name="person-add-outline"></ion-icon><span>Add new manager</span></li>
+                            <Link to={"/admin/managers"} className="text-decoration-none text-dark "><li className='left-content'><ion-icon name="people-outline"></ion-icon><span>Manager List</span></li></Link>
+                            <Link to={"/admin/add-new-blog-manager"} className="text-decoration-none text-dark">   <li className='left-content '><ion-icon name="person-add-outline"></ion-icon><span>Add new manager</span></li></Link>
                         </ul>
                     </div>
                 </div>
-                <div className='bar-content'> 
+                <div className='bar-content'>
                     <div className='header-content'>
                         CHAT
                     </div>
                     <div className='body-content'>
                         <ul className='p-0'>
-                            <li className='left-content'><ion-icon name="chatbubbles-outline"></ion-icon><span>Chatbox</span></li>
+                            <Link to={"/admin/chatbox"} className="text-decoration-none text-dark"><li className='left-content '><ion-icon name="chatbubbles-outline"></ion-icon><span>Chatbox</span></li></Link>
                         </ul>
                     </div>
                 </div>
-                <div className='bar-content'> 
+                <div className='bar-content'>
                     <div className='header-content'>
                         FEEDBACK
                     </div>
                     <div className='body-content'>
                         <ul className='p-0'>
-                            <li className='left-content'><ion-icon name="chatbox-ellipses-outline"></ion-icon><span>Feedback</span></li>
-                            
+                            <Link to={"/admin/feedback"} className="text-decoration-none text-dark"><li className='left-content '><ion-icon name="chatbox-ellipses-outline"></ion-icon><span>Feedback</span></li></Link>
                         </ul>
                     </div>
                 </div>

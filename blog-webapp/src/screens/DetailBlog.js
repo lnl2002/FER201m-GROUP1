@@ -14,7 +14,7 @@ export default function DetailBlog() {
     const [feedback, setFeedback] = useState([]);
     const [p, setBlog] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:9997/blogs/" + pid )
+        fetch("http://localhost:9999/blogs/" + pid )
           .then((resp) => resp.json())
           .then((data) => {
             setBlog(data);
@@ -24,7 +24,7 @@ export default function DetailBlog() {
           });
       }, []);
       useEffect(() => {
-        fetch("http://localhost:9997/categories")
+        fetch("http://localhost:9999/categories")
           .then((resp) => resp.json())
           .then((data) => {
             setCategory(data);
@@ -34,7 +34,7 @@ export default function DetailBlog() {
           });
       }, []);
       useEffect(() => {
-        fetch("http://localhost:9997/users")
+        fetch("http://localhost:9999/users")
           .then((resp) => resp.json())
           .then((data) => {
             setUser(data);
@@ -44,7 +44,7 @@ export default function DetailBlog() {
           });
       }, []);
       useEffect(() => {
-        fetch("http://localhost:9997/feedbacks")
+        fetch("http://localhost:9999/feedbacks")
           .then((resp) => resp.json())
           .then((data) => {
             setFeedback(data);

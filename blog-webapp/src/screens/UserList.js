@@ -18,7 +18,7 @@ function UserList() {
     const [feedback, setFeedback] = useState([]);
     const [p, setBlog] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:9997/blogs")
+        fetch("http://localhost:9999/blogs")
           .then((resp) => resp.json())
           .then((data) => {
             setBlog(data);
@@ -28,7 +28,7 @@ function UserList() {
           });
       }, []);
       useEffect(() => {
-        fetch("http://localhost:9997/categories")
+        fetch("http://localhost:9999/categories")
           .then((resp) => resp.json())
           .then((data) => {
             setCategory(data);
@@ -38,7 +38,7 @@ function UserList() {
           });
       }, []);
       useEffect(() => {
-        fetch("http://localhost:9997/users")
+        fetch("http://localhost:9999/users")
           .then((resp) => resp.json())
           .then((data) => {
             setUser(data);
@@ -48,7 +48,7 @@ function UserList() {
           });
       }, []);
       useEffect(() => {
-        fetch("http://localhost:9997/feedbacks")
+        fetch("http://localhost:9999/feedbacks")
           .then((resp) => resp.json())
           .then((data) => {
             setFeedback(data);

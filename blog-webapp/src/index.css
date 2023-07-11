@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.regist__modal .modal-dialog {
+  max-width: 75vw;
+  margin: 1.75rem auto;
+}
+
+.overflow-x-scroll {
+  overflow-x: scroll;
+}
+
+.mg-3 {
+  margin: 30px;
+}
+.carousel-control-next,
+.carousel-control-prev {
+  color: #000;;
+}
+
+.me-2 {
+  margin-right: 15px;
+}

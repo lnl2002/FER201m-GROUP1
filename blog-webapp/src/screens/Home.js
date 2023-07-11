@@ -1,120 +1,133 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Carousel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import DefaultLayout from '../layouts/DefaultLayout';
-
+import '../styles/home.css'
 const Home = () => {
-  // Dữ liệu các món mới nhất
-  const newestRecipes = [
-    {
-      id: 1,
-      name: 'Món mới 1',
-      image: 'path/to/newest_recipe_1.jpg',
-      description: 'Mô tả công thức 1',
-    },
-    {
-      id: 2,
-      name: 'Món mới 2',
-      image: 'path/to/newest_recipe_2.jpg',
-      description: 'Mô tả công thức 2',
-    },
-    // Thêm các món mới khác tương tự
-  ];
+  const [blogs, setBlogs] = useState([]);
+  const [categories, setCategories] = useState([]);
 
-  // Dữ liệu các món hot nhất
-  const popularRecipes = [
-    {
-      id: 1,
-      name: 'Món hot 1',
-      image: 'path/to/popular_recipe_1.jpg',
-      description: 'Mô tả công thức 1',
-    },
-    {
-      id: 2,
-      name: 'Món hot 2',
-      image: 'path/to/popular_recipe_2.jpg',
-      description: 'Mô tả công thức 2',
-    },
-    // Thêm các món hot khác tương tự
-  ];
-
-  // Dữ liệu các món lượt xem nhiều nhất
-  const trendingRecipes = [
-    {
-      id: 1,
-      name: 'Món hot 1',
-      image: 'path/to/trending_recipe_1.jpg',
-      description: 'Mô tả công thức 1',
-    },
-    {
-      id: 2,
-      name: 'Món hot 2',
-      image: 'path/to/trending_recipe_2.jpg',
-      description: 'Mô tả công thức 2',
-    },
-    // Thêm các món lượt xem nhiều khác tương tự
-  ];
-
+  useEffect(() => {
+    fetch("http://localhost:9999/blogs")
+      .then(res => res.json())
+      .then(data => setBlogs(data))
+  }, [])
+  useEffect(() => {
+    fetch("http://localhost:9999/categories")
+      .then(res => res.json())
+      .then(data => setCategories(data))
+  }, [])
   return (
     <DefaultLayout>
-    <Container>
-      <Row>
-        <Col>
-          <h1>Các món mới nhất</h1>
-          <Carousel>
-            {newestRecipes.map((recipe) => (
-              <Carousel.Item key={recipe.id}>
-                <Link to={`/recipe/${recipe.id}`}>
-                  <img className="d-block w-100" src={recipe.image} alt={recipe.name} />
-                  <Carousel.Caption>
-                    <h3>{recipe.name}</h3>
-                    <p>{recipe.description}</p>
-                  </Carousel.Caption>
-                </Link>
-              </Carousel.Item>
-            ))}
-          </Carousel>
-        </Col>
-      </Row>
+      <Container fluid className='p-0'>
+        <div >
+          <Carousel >
+            <Carousel.Item >
+              <img
+                className="carousel-img"
+                src="assets/images/banner_1.png"
+                alt="First slide"
+              />
+              <Carousel.Caption className='carousel-caption'>
+                <h3>Phở Việt Nam</h3>
+                <p>Hương vị của ẩm thực Việt Nam: Phở</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+              <img
+                className="carousel-img"
+                src="assets/images/banner_2.png"
+                alt="Second slide"
+              />
 
-      <Row>
-        <Col>
-          <h1>Các món hot nhất</h1>
-          <Carousel>
-            {popularRecipes.map((recipe) => (
-              <Carousel.Item key={recipe.id}>
-                <Link to={`/recipe/${recipe.id}`}>
-                  <img className="d-block w-100" src={recipe.image} alt={recipe.name} />
-                  <Carousel.Caption>
-                    <h3>{recipe.name}</h3>
-                    <p>{recipe.description}</p>
-                  </Carousel.Caption>
-                </Link>
-              </Carousel.Item>
-            ))}
-          </Carousel>
-        </Col>
-      </Row>
+              <Carousel.Caption className='carousel-caption'>
+                <h3>Thịt bò hầm khoai tây</h3>
+                <p>Hòa quyện hương vị đậm đà</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+              <img
+                className="carousel-img"
+                src="assets/images/banner_3.png"
+                alt="Third slide"
+              />
 
-      <Row>
-        <Col>
-          <h1>Các món lượt xem nhiều nhất</h1>
-          <Carousel>
-            {trendingRecipes.map((recipe) => (
-              <Carousel.Item key={recipe.id}>
-                <Link to={`/recipe/${recipe.id}`}>
-                  <img className="d-block w-100" src={recipe.image} alt={recipe.name} />
-                  <Carousel.Caption>
-                    <h3>{recipe.name}</h3>
-                    <p>{recipe.description}</p>
-                  </Carousel.Caption>
-                </Link>
-              </Carousel.Item>
-            ))}
+              <Carousel.Caption className='carousel-caption'>
+                <h3>Cách làm bành ngọt</h3>
+                <p>
+                  Làm bánh ngọt từ A đến Z - Khám phá bí quyết thành công
+                </p>
+              </Carousel.Caption>
+            </Carousel.Item>
           </Carousel>
-        </Col>
-      </Row>
-    </Container>
+        </div>
+        <Container style={{ textAlign: "left" }}>
+          <Row>
+            <Col sm={8} lg={9}>
+              <section className='new-blog'>
+                <h4 className='blog-header text-uppercase '>
+                  <span>
+                    Công thức mới nhất
+                  </span>
+                </h4>
+              </section>
+              <div className='section-body'>
+                {
+                  blogs.map(blog =>
+                    <div className='item-blog d-flex' key={blog.id}>
+                      <a href={`blogs/detail/${blog.id}`} className='img-container'>
+                        <picture>
+                          <img src={blog.thumbnail}></img>
+                        </picture>
+                      </a>
+                      <div className='text-container h6'>
+
+                        <Link to={""} className="text-uppercase font-weight-bold text-decoration-none list-unstyled blog-category" >
+                          {
+                            categories.map(category => category.id === blog.categoryId ? category.categoryName : "")
+                          }
+                        </Link>
+
+                        <div className='title h4 font-weight-bold'>
+                          <Link to={`/blogs/detail/${blog.id}`} className="list-unstyled text-decoration-none blog-title">{blog.title}</Link>
+                        </div>
+
+                        <div className='star-container'>
+                          <ion-icon name="star"></ion-icon>
+                          <ion-icon name="star"></ion-icon>
+                          <ion-icon name="star"></ion-icon>
+                          <ion-icon name="star"></ion-icon>
+                          <ion-icon name="star"></ion-icon>
+                        </div>
+
+                        <div class="blog-subtitle">
+                          {blog.introduce}
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+
+              </div>
+            </Col>
+            <Col sm={4} lg={3}>
+              <aside id="sidebar" >
+                <div className='blog-menu'>
+                  <img src='assets/images/menu.png' />
+                  <div class="middle-menu">
+                    <p class="h4"><a style={{ color: "#070707" }} title="Cách làm bánh tét chiên đoàn viên cùng gia đình ngày Tết" href="https://yummyday.vn/banh-tet-chien-932?rel=menu">Bánh tét chiên</a></p>
+                    <p class="h4"><a style={{ color: "#070707" }} title="Cách làm đậu hũ chiên sả ớt thơm ngon tại nhà" href="https://yummyday.vn/dau-hu-chien-sa-42?rel=menu">Đậu hũ chiên sả</a></p>
+                    <p class="h4"><a style={{ color: "#070707" }} title="Cách chế biến món thịt bò xào tỏi ngon ngất ngây" href="https://yummyday.vn/thit-bo-xao-toi-56?rel=menu">Thịt bò xào tỏi</a></p>
+                    <p class="h4"><a style={{ color: "#070707" }} title="Cách nấu món lẩu bò đúng điệu cực kỳ hấp dẫn cho ngày mưa" href="https://yummyday.vn/lau-bo-71?rel=menu">Lẩu bò</a></p>
+                    <p class="h4"><a style={{ color: "#070707" }} title="Đổi khẩu vị với món nộm thịt bò hành tây thơm ngon kiểu Thái" href="https://yummyday.vn/nom-thit-bo-hanh-tay-35?rel=menu">Nộm thịt bò hành tây</a></p>
+                  </div>
+                  <img src='assets/images/footer_menu.png' />
+                </div>
+              </aside>
+            </Col>
+          </Row>
+        </Container>
+      </Container>
     </DefaultLayout>
   );
 };

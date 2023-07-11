@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Button, Table } from 'react-bootstrap'
 import 'datatables.net-dt/css/jquery.dataTables.css';
+import 'datatables.net-dt/js/dataTables.dataTables.js';
 import $ from 'jquery';
 import AdminLayout from '../layouts/AdminLayout';
 const FeedbackList = () => {

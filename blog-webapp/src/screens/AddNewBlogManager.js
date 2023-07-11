@@ -2,17 +2,65 @@ import AdminLayout from "../layouts/AdminLayout"
 import React, { useState } from 'react';
 import '../styles/addNewBlogManager.css'
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Swal from 'sweetalert2'
+
 const AddNewBlogManager = () => {
     const [validated, setValidated] = useState(false);
-    const [users, setUsers]  = useState([]);
-    
+    const [users, setUsers] = useState([]);
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [repassword, setRepassword] = useState();
+    const [name, setName] = useState();
+    const [gender, setGender] = useState();
+    const [phone, setPhone] = useState();
+    const [address, setAddress] = useState();
+    let id = 0;
+    let role = "Manager";
     const handleSubmit = (event) => {
         const form = event.currentTarget;
-        if(form.checkValidity() === false){
+        if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
         } else {
             event.preventDefault();
+            const user = { id, email, password, name, gender, phone, address, role };
+            if (user != null) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Do you want to add this manager?',
+                    text: 'This action can not revert',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: "Cancel",
+                    confirmButtonText: 'Add'
+                })
+                    .then((result) => {
+                        console.log(result);
+                        if (result.isConfirmed) {
+                            fetch('http://localhost:9999/users', {
+                                method: 'Post',
+                                headers: { 'Content-Type': 'Application/Json' },
+                                body: JSON.stringify(user)
+                            })
+                                .then(() => {
+                                    toast.success('Add success');
+                                    setEmail("");
+                                    setPassword("");
+                                    setRepassword("");
+                                    setName("");
+                                    setGender("");
+                                    setPhone("");
+                                    setAddress("");
+
+                                    setValidated(false);
+                                })
+                                .catch(err => console.log(err.message))
+                        }
+                    })
+            }
         }
 
         setValidated(true);
@@ -23,6 +71,7 @@ const AddNewBlogManager = () => {
         <AdminLayout>
             <div className="content add-new-manager">
                 <Container fluid >
+                    <ToastContainer />
                     <Container style={{ backgroundColor: "#fff" }} >
                         <Form className="add-form" noValidate validated={validated} onSubmit={handleSubmit}>
                             <Row>
@@ -35,6 +84,8 @@ const AddNewBlogManager = () => {
                                             type="email"
                                             name="email"
                                             required
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            value={email}
                                         />
                                         <Form.Control.Feedback type="invalid">
                                             Email was exsited
@@ -47,6 +98,9 @@ const AddNewBlogManager = () => {
                                             type="password"
                                             name="password"
                                             required
+                                            pattern="^(?=.*[A-Z]).{8,}$"
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            value={password}
                                         />
                                         <Form.Control.Feedback type="invalid">
                                             Password need more than 8 characters and include at least one capital letter
@@ -59,6 +113,8 @@ const AddNewBlogManager = () => {
                                             type="password"
                                             name="repassword"
                                             required
+                                            onChange={(e) => setRepassword(e.target.value)}
+                                            value={repassword}
                                         />
                                     </Form.Group>
                                     <Form.Control.Feedback type="invalid">
@@ -73,6 +129,8 @@ const AddNewBlogManager = () => {
                                             placeholder="Enter manager name"
                                             name="name"
                                             required
+                                            onChange={(e) => setName(e.target.value)}
+                                            value={name}
                                         />
                                         <Form.Control.Feedback type="invalid">
                                             Can not empty
@@ -84,11 +142,15 @@ const AddNewBlogManager = () => {
                                             type="radio"
                                             label="Male"
                                             name="gender"
+                                            value="Male"
+                                            onChange={(e) => setGender(e.target.value)}
                                         />
                                         <Form.Check
                                             type="radio"
                                             label="Female"
                                             name="gender"
+                                            value="Female"
+                                            onChange={(e) => setGender(e.target.value)}
                                         />
 
                                     </Form.Group>
@@ -99,9 +161,11 @@ const AddNewBlogManager = () => {
                                             type="text"
                                             pattern="^0\d{9}"
                                             required
+                                            onChange={(e) => setPhone(e.target.value)}
+                                            value={phone}
                                         />
                                         <Form.Control.Feedback type="invalid">
-                                            Can not empty
+                                            Phone number is invalid
                                         </Form.Control.Feedback>
                                     </Form.Group>
                                     <Form.Group className="form-input">
@@ -110,6 +174,8 @@ const AddNewBlogManager = () => {
                                             placeholder="Manager address"
                                             type="text"
                                             required
+                                            onChange={(e) => setAddress(e.target.value)}
+                                            value={address}
                                         />
                                         <Form.Control.Feedback type="invalid">
                                             Can not empty
@@ -120,7 +186,7 @@ const AddNewBlogManager = () => {
                             <Row>
                                 <Col className="text-center">
                                     <Button className="btn-danger btn-cancel" >Cancel</Button>
-                                    <Button className="btn-success" type="submit">Add</Button>
+                                    <Button className="btn-success" type="submit" >Add</Button>
                                 </Col>
                             </Row>
 
