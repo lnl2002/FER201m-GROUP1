@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Form } from 'react-bootstrap';
 import bcrypt from 'bcryptjs'
 
-export const SignIn = ({ openSignUp, hideForm }) => {
+export const SignIn = ({ openSignUp, openForgotPassword ,hideForm }) => {
     const { user, setUser } = useContext(UserContext);
     const [validated, setValidated] = useState(false);
     const [users, setUsers] = useState([]);
@@ -23,10 +23,14 @@ export const SignIn = ({ openSignUp, hideForm }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
     const handleOpenSignUp = () => {
         openSignUp()
-    }
 
+    }
+    const handleOpenForgotPassword = () => {
+        openForgotPassword();
+    }
 
     const handleSignIn = (event) => {
         const form = event.currentTarget;
@@ -36,7 +40,7 @@ export const SignIn = ({ openSignUp, hideForm }) => {
             setValidated(true);
         } else {
             event.preventDefault();
-            const u = users.find(user => 
+            const u = users.find(user =>
                 user.email === email && bcrypt.compareSync(password, user.password)
             )
             if (u) {
@@ -102,16 +106,19 @@ export const SignIn = ({ openSignUp, hideForm }) => {
                                 Mật khẩu cần chứa ít nhất 8 kí tự và có một kí tự viết hoa.
                             </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Check
-                            checked={isRememberMe}
-                            onChange={event => setIsRememberMe(event.target.checked)}
-                            label="Ghi nhớ đăng nhập"
-                            className='mx-3'
-                        />
+                        <div className='d-flex justify-content-between' style={{padding: "0 16px"}}>
+                            <Form.Check
+                                checked={isRememberMe}
+                                onChange={event => setIsRememberMe(event.target.checked)}
+                                label="Ghi nhớ đăng nhập"
+                            />
+                            <strong  onClick={handleOpenForgotPassword}>Quên mật khẩu</strong>
+                        </div>
+
 
                         <div className="my-4 mx-3 d-flex justify-content-center">
                             <button className="btn btn-warning" type='submit'>
-                                Sign In
+                                Đăng nhập
                             </button>
                         </div>
 

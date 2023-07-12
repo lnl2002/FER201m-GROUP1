@@ -129,3 +129,19 @@
     font-size: 20px;
     font-family: DacingScript, sans-serif
 }
+
+.category-image {
+    background-image: url(../../public/assets/images/category_background.png);
+    color: #fff;
+}
+
+.category-background {
+    background-color: rgba(0,0,0,0.3);
+}
+
+.category-title h3{
+    text-align: left;
+    font-size: 25px;
+    font-family: "Roboto", sans-serif;
+    padding: 40px 15px;
+}

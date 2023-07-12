@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-
+@import url('https://fonts.googleapis.com/css?family=Roboto|sans-serif');
 body {
     color: #515151;
     font-family: Roboto, sans-serif;
@@ -127,6 +127,42 @@ body {
     text-align: center;
     padding-top: 5px;
     padding-bottom: 5px;
+}
+
+.category {
+    list-style: none;
+    margin: 0;
+    height: 54px;
+    align-items: center;
+}
+.category li {
+    margin-right: 30px;
+}
+.category li a{
+    color: #515151;
+    font-weight: bolder;
+    font-family: 'Roboto',sans-serif;
+}
+
+
+.category li a:hover {
+    color: #f2b705;
+    transition: all .3s ease ;
+
+}
+
+.category li a {
+    font-size: 14px;
+    padding: 15px 0;
+    text-decoration: none;
+}
+
+.active-category {
+    color: #f2b705 !important;
+}
+
+.category-container {
+    box-shadow: 0 2px  rgba(0,0,0,0.2);
 }
 
 @keyframes changeColor {

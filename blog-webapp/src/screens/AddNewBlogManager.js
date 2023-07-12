@@ -5,6 +5,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2'
+import bcrypt from 'bcryptjs'
 
 const AddNewBlogManager = () => {
     const [validated, setValidated] = useState(false);
@@ -25,7 +26,9 @@ const AddNewBlogManager = () => {
             event.stopPropagation();
         } else {
             event.preventDefault();
-            const user = { id, email, password, name, gender, phone, address, role };
+            const bcryptEncode = bcrypt.genSaltSync(10);
+            const hashedPassword = bcrypt.hashSync(password, bcryptEncode);
+            const user = { id, email, password: hashedPassword, name, gender, phone, address, role };
             if (user != null) {
                 Swal.fire({
                     icon: 'warning',

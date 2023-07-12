@@ -2,14 +2,25 @@ import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import { Form, Button, Modal } from 'react-bootstrap'
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../App';
 import { SignIn } from '../screens/SignIn';
 import { SignUp } from '../screens/SignUp';
+import ForgotPassword from '../screens/ForgotPassword';
+
 export default function HeaderFE() {
     const [show, setShow] = useState(false);
     const [formType, setFormType] = useState("");
+    const [categories, setCategories] = useState([]);
+    const [search, setSearch] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        fetch("http://localhost:9999/categories")
+            .then(res => res.json())
+            .then(data => setCategories(data))
+    }, [])
 
     const openSignUp = () => {
         setShow(true)
@@ -20,7 +31,11 @@ export default function HeaderFE() {
         setShow(true)
         setFormType("sign-in")
     }
-
+    
+    const openForgotPassword = () => {
+        setShow(true)
+        setFormType("forgot-password")
+    }
     const hideForm = () => {
         setShow(false);
         setFormType("");
@@ -42,6 +57,20 @@ export default function HeaderFE() {
         window.location.reload()
     }
 
+    //Search
+    
+    const handleSearch = (event) => {
+        const form = event.currentTarget;
+        if(search === ''){
+            event.preventDefault();
+            console.log("khong");
+
+        } else {
+            event.preventDefault();
+            navigate(`/search/${search}`  );
+        }
+    }
+
     return (
         <>
             <Navbar className='header' >
@@ -51,19 +80,21 @@ export default function HeaderFE() {
                     </Link>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className='me-auto col-md-8'>
-                            <Form className="d-flex w-75">
+                        <Nav className='me-auto col-md-6'>
+                            <Form className="d-flex w-75" onSubmit={handleSearch}>
                                 <Form.Control
-                                    type="search"
-                                    placeholder="Search"
+                                    type="text"
+                                    placeholder="Tìm kiếm"
                                     className="me-2"
                                     aria-label="Search"
+                                    value={search}
+                                    onChange={e => setSearch(e.target.value)}
                                 />
-                                <Button variant="success"><ion-icon name="search-outline"></ion-icon></Button>
+                                <Button type='submit' variant="success"><ion-icon name="search-outline"></ion-icon></Button>
                             </Form>
                         </Nav>
 
-                        <Nav className='col-md-4 contact'>
+                        <Nav className='col-md-6 contact'>
                             <Nav.Link href="#home" className='contact-detail'> <ion-icon name="business-outline"></ion-icon>  Liên hệ</Nav.Link>
                             <Nav.Link href="#home" className='contact-detail'> <ion-icon name="people-outline"></ion-icon>  Về chúng tôi</Nav.Link>
                             {
@@ -71,12 +102,12 @@ export default function HeaderFE() {
                                 <>
                                     <Nav.Link href="#home" className='contact-detail' onClick={openSignUp}> <ion-icon name="mail-outline"></ion-icon> Đăng ký</Nav.Link>
                                     <Nav.Link href="#home" className='contact-detail' onClick={openSignIn}> <ion-icon name="mail-outline"></ion-icon> Đăng nhập</Nav.Link>
+                                    <Nav.Link href="#home" className='contact-detail' onClick={openForgotPassword}> <ion-icon name="mail-outline"></ion-icon> for</Nav.Link>
                                 </>
                             }
                             {
                                 currentUser != null &&
                                 <>
-                                    <p>{currentUser.name}</p>
                                     <Nav.Link href="#home" className='contact-detail' onClick={handleLogout}> <ion-icon name="mail-outline"></ion-icon> Đăng xuất</Nav.Link>
                                 </>
                             }
@@ -95,11 +126,29 @@ export default function HeaderFE() {
                                     formType === "sign-in" &&
                                     <SignIn openSignUp={openSignUp} hideForm={hideForm} />
                                 }
+                                {
+                                    formType === "forgot-password" &&
+                                    <ForgotPassword openForgotPassword={openForgotPassword} hideForm={hideForm} />
+                                }
                             </Modal.Body>
                         </Modal>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
+            <Container style={{ backgroundColor: "white" }} className="category-container">
+                <ul className='d-flex category p-0 text-uppercase'>
+                    <li><NavLink to={"/"} className={({ isActive }) => isActive ? 'active-category' : ''}>Trang chủ</NavLink></li>
+                    {
+                        categories.map(category =>
+                            <li>
+                                <NavLink to={"/" + category.id} className={({ isActive }) => isActive ? 'active-category' : ''} >
+                                    {category.categoryName}
+                                </NavLink>
+                            </li>
+                        )
+                    }
+                </ul>
+            </Container>
         </>
     )
 }

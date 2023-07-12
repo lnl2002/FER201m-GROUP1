@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { UserContext } from '../App';
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Form } from 'react-bootstrap';
 import bcrypt from 'bcryptjs'
@@ -9,6 +8,7 @@ export const SignUp = ({ openSignIn, hideForm }) => {
     const handleOpenSignIn = () => {
         openSignIn()
     }
+   
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -121,7 +121,7 @@ export const SignUp = ({ openSignIn, hideForm }) => {
 
                         <div className="my-4 mx-3 d-flex justify-content-center">
                             <button className="btn btn-warning" type='submit'>
-                                Sign up
+                                Đăng ký
                             </button>
                         </div>
                     </Form>

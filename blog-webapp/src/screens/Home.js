@@ -3,20 +3,73 @@ import { Container, Row, Col, Carousel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import DefaultLayout from '../layouts/DefaultLayout';
 import '../styles/home.css'
+import Paginate from './Paginate';
+import { toast } from 'react-toastify'
+
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
   const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:9999/blogs")
-      .then(res => res.json())
+  //pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handleFilter = (page) => {
+    var url = `http://localhost:9999/blogs/?_sort=id&_page=${page}&_limit=5`;
+
+    fetch(url)
+      .then((res) => {
+        const totalCount = res.headers.get('X-Total-Count');
+        setTotalPages(Math.ceil(totalCount / 10));
+        return res.json();
+      })
       .then(data => setBlogs(data))
-  }, [])
+      .catch((err) => toast.error(err));
+  }
+
+  useEffect(
+    () => {
+      handleFilter(currentPage);
+    }, [currentPage]
+  )
+
+  // useEffect(() => {
+  //   fetch("http://localhost:9999/blogs")
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       let newBlogs = [];
+  //       newBlogs = data.sort((a, b) => {
+  //         const timeA = convertStringToDate(a.time);
+  //         const timeB = convertStringToDate(b.time);
+  //         return timeB - timeA;
+  //       })
+  //       setBlogs(newBlogs);
+  //     })
+
+  // }, [])
+
   useEffect(() => {
     fetch("http://localhost:9999/categories")
       .then(res => res.json())
       .then(data => setCategories(data))
   }, [])
+
   return (
     <DefaultLayout>
       <Container fluid className='p-0'>
@@ -82,7 +135,7 @@ const Home = () => {
                       </a>
                       <div className='text-container h6'>
 
-                        <Link to={""} className="text-uppercase font-weight-bold text-decoration-none list-unstyled blog-category" >
+                        <Link to={`/${blog.categoryId}`} className="text-uppercase font-weight-bold text-decoration-none list-unstyled blog-category" >
                           {
                             categories.map(category => category.id === blog.categoryId ? category.categoryName : "")
                           }
@@ -109,8 +162,17 @@ const Home = () => {
                 }
 
               </div>
+              <div className="pagination mb-3 justify-content-end">
+                <Paginate
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  handlePageChange={handlePageChange}
+                  handlePrevPage={handlePrevPage}
+                  handleNextPage={handleNextPage}
+                />
+              </div>
             </Col>
-            <Col sm={4} lg={3}>
+            <Col sm={4} lg={3} style={{ paddingBottom: "40px" }}>
               <aside id="sidebar" >
                 <div className='blog-menu'>
                   <img src='assets/images/menu.png' />
@@ -127,6 +189,7 @@ const Home = () => {
             </Col>
           </Row>
         </Container>
+
       </Container>
     </DefaultLayout>
   );
