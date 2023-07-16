@@ -483,20 +483,5 @@
       "role": "Admin"
     }
   ],
-  "feedbacks": [
-    {
-      "id": 1,
-      "userId": 1,
-      "blogId": 1,
-      "content": "Feedback content for Blog 1",
-      "rate": 4
-    },
-    {
-      "id": 2,
-      "userId": 2,
-      "blogId": 2,
-      "content": "Feedback content for Blog 2",
-      "rate": 5
-    }
-  ]
+  "feedbacks": []
 }

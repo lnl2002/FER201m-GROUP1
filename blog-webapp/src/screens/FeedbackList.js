@@ -5,7 +5,8 @@ import 'datatables.net-dt/css/jquery.dataTables.css';
 import $ from 'jquery';
 import AdminLayout from '../layouts/AdminLayout';
 import { useNavigate } from 'react-router-dom';
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
+import Swal from 'sweetalert2'
 
 const FeedbackList = () => {
     const tableRef = useRef(null);
@@ -58,7 +59,7 @@ const FeedbackList = () => {
     const navigate = useNavigate();
 
     //Authorization
-    if (currentUser == null || currentUser.role ==="Viewer") {
+    if (currentUser == null || currentUser.role === "Viewer") {
         setTimeout(() => {
             navigate("/");
             toast.error("Không có quyền truy cập")
@@ -68,6 +69,31 @@ const FeedbackList = () => {
             navigate("/manager/blogs");
             toast.error("Không có quyền truy cập")
         }, 150)
+    }
+
+    //delete
+    const handleDelete = (id) => {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Bạn có muốn xóa comment này không?',
+            text: 'Hành động này không thể khôi phục lại',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Cancel",
+            confirmButtonText: 'Delete'
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`http://localhost:9999/feedbacks/${id}`, {
+                        method: 'DELETE',
+                    })
+                        .then(
+                            toast.success("Xóa thành công")
+                        )
+                }
+
+            })
     }
 
     return (
@@ -113,7 +139,7 @@ const FeedbackList = () => {
                                         ))}
                                     </td>
 
-                                    <td><Button className='btn btn-primary'>View</Button></td>
+                                    <td><Button className='btn btn-danger' onClick={() => handleDelete(feedback.id)}>Delete</Button></td>
                                 </tr>
                             )
                         }
