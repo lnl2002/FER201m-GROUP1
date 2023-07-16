@@ -58,9 +58,9 @@ function UserList() {
           });
       }, []);
       //Delete event:
-  const handleDelete = (Id) => {
-    if (window.confirm("Do you remove product witdh ID" + Id)) {
-      fetch(`http://localhost:9997/users/${Id}`, {
+  const handleDelete = (id) => {
+    if (window.confirm("Do you remove product witdh ID" + id)) {
+      fetch(`http://localhost:9997/users/${id}`, {
         method: "DELETE",
       }).then(() => {
         window.location.reload();
@@ -109,7 +109,7 @@ function UserList() {
                     <td>{p.phone}</td>
                     <td>{p.address}</td>
                     <td>
-                      <Link to={"/"} onClick={() => handleDelete(p.Id)}>Delete</Link>
+                      <Link to={"/userlist"} onClick={() => handleDelete(p.id)}>Delete</Link>
                     </td>
                   </tr>
                 ))}

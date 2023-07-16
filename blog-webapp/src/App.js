@@ -8,6 +8,9 @@ import CopyrightPage from './screens/CopyrightPage';
 import AboutPage from './screens/AboutPage';
 import AddNewBlogManager from './screens/AddNewBlogManager';
 import FeedbackList from './screens/FeedbackList';
+import Bloglist from './screens/Bloglist'
+import AddBlog from './screens/AddBlog'
+import Edit from './screens/Edit'
 function App() {
   return (
     <BrowserRouter>
@@ -18,8 +21,11 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/copyright" element={<CopyrightPage />} />
-        <Route path="/admin/add-new-blog-manager" element={<AddNewBlogManager />} />
-        <Route path="/admin/feedback" element={<FeedbackList />} />
+        <Route path="/admin/add-new-blog-manager" element={<AddNewBlogManager/>} />
+        <Route path="/admin/feedback" element={<FeedbackList/>} />
+        <Route path="/bloglist" element={<Bloglist/>} />
+        <Route path="/addblog" element={<AddBlog/>} />
+        <Route path="/edit/:id" element={<Edit/>} />
       </Routes>
       
     </BrowserRouter>

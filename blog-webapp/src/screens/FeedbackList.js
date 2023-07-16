@@ -9,7 +9,7 @@ const FeedbackList = () => {
     const [users, setUsers] = useState([]);
     const [blogs, setBlogs] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:9999/feedbacks")
+        fetch("http://localhost:9997/feedbacks")
             .then(res => res.json())
             .then(data => {
                 setFeedbackList(data);
@@ -17,7 +17,7 @@ const FeedbackList = () => {
     }, [])
 
     useEffect(() => {
-        fetch("http://localhost:9999/blogs")
+        fetch("http://localhost:9997/blogs")
             .then(res => res.json())
             .then(data => {
                 setBlogs(data);
@@ -26,7 +26,7 @@ const FeedbackList = () => {
 
 
     useEffect(() => {
-        fetch("http://localhost:9999/users")
+        fetch("http://localhost:9997/users")
             .then(res => res.json())
             .then(data => {
                 setUsers(data);

@@ -12,7 +12,7 @@ import { NavLink } from 'react-router-dom';
 const MenuBar = () => {
   return (
     
-    <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
+    <div style={{ display: 'flex',  overflow: 'scroll initial' }}>
       <CDBSidebar textColor="#fff" backgroundColor="#333">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
           <a href="/" className="text-decoration-none" style={{ color: 'inherit' }}>
@@ -22,20 +22,20 @@ const MenuBar = () => {
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            <NavLink exact to="/" activeClassName="activeClicked">
+            <NavLink exact to="/userlist" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="columns">Dashboard</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/tables" activeClassName="activeClicked">
+            <NavLink exact to="/userlist" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="table">Category</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/profile" activeClassName="activeClicked">
+            <NavLink exact to="/userlist" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="user">User</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/analytics" activeClassName="activeClicked">
+            <NavLink exact to="/bloglist" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="chart-line">Blog</CDBSidebarMenuItem>
             </NavLink>
 
-            <NavLink exact to="/hero404" target="_blank" activeClassName="activeClicked">
+            <NavLink exact to="/userlist" target="_blank" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="exclamation-circle">FeedBack</CDBSidebarMenuItem>
             </NavLink>
           </CDBSidebarMenu>
