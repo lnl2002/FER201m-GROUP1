@@ -85,12 +85,13 @@ const FeedbackList = () => {
         })
             .then((result) => {
                 if (result.isConfirmed) {
-                    fetch(`http://localhost:9999/feedbacks/${id}`, {
-                        method: 'DELETE',
+                    console.log(id);
+                    fetch('http://localhost:9999/feedbacks/' + id, {
+                        method: "DELETE"
                     })
-                        .then(
-                            toast.success("Xóa thành công")
-                        )
+                        .then(() => {
+                            window.location.reload();
+                        })
                 }
 
             })

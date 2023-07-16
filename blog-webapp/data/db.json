@@ -483,5 +483,48 @@
       "role": "Admin"
     }
   ],
-  "feedbacks": []
+  "feedbacks": [
+    {
+      "id": 1,
+      "userId": 15,
+      "blogId": 1,
+      "content": "Feedback content for Blog 1",
+      "rate": 4
+    },
+    {
+      "id": 2,
+      "userId": 15,
+      "blogId": 2,
+      "content": "Feedback content for Blog 2",
+      "rate": 5
+    },
+    {
+      "userId": 17,
+      "blogId": 3,
+      "content": "ngon quá ",
+      "rate": "5",
+      "id": 3
+    },
+    {
+      "userId": 15,
+      "blogId": 1,
+      "content": "ngon quá ",
+      "rate": "5",
+      "id": 4
+    },
+    {
+      "userId": 16,
+      "blogId": 5,
+      "content": "quá tuyệt vười ",
+      "rate": "4",
+      "id": 5
+    },
+    {
+      "userId": 17,
+      "blogId": 1,
+      "content": "quá tuyệt vười ",
+      "rate": "4",
+      "id": 6
+    }
+  ]
 }
