@@ -12,6 +12,8 @@ import { createContext, useState } from 'react';
 import BlogListFE from './screens/BlogListFE';
 import ResetPassword from './screens/ResetPassword';
 import Search from './screens/Search';
+import AdminLogin from './screens/AdminLogin';
+import Page404 from './screens/404';
 
 export const UserContext = createContext();
 function App() {
@@ -23,7 +25,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} ></Route>
           <Route path='/blogs/detail/:pid' element={<DetailBlog />} ></Route>
-          <Route path='/:cid' element={<BlogListFE />} ></Route>
+          <Route path='/filter/:cid' element={<BlogListFE />} ></Route>
           <Route path='/admin/managers' element={<UserList />} ></Route>
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
@@ -32,6 +34,8 @@ function App() {
           <Route path="/admin/feedback" element={<FeedbackList />} />
           <Route path='/reset-password/:token' element={<ResetPassword/>}/>
           <Route path='/search/:search' element={<Search/>}/>
+          <Route path='/manage' element={<AdminLogin/>}/>
+          <Route path='*' element={<Page404/>}/>
         </Routes>
 
       </BrowserRouter>

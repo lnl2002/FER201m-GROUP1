@@ -1,9 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Button, Table } from 'react-bootstrap'
-import 'datatables.net-dt/css/jquery.dataTables.css';
 import 'datatables.net-dt/js/dataTables.dataTables.js';
+import 'datatables.net-dt/css/jquery.dataTables.css';
 import $ from 'jquery';
 import AdminLayout from '../layouts/AdminLayout';
+import { useNavigate } from 'react-router-dom';
+import {toast} from 'react-toastify'
+
 const FeedbackList = () => {
     const tableRef = useRef(null);
     const [feedbackList, setFeedbackList] = useState([]);
@@ -39,6 +42,34 @@ const FeedbackList = () => {
             $(tableRef.current).DataTable();
         }
     }, [feedbackList]);
+
+    //Get current user
+    const [currentUser, setCurrentUser] = useState(localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : JSON.parse(sessionStorage.getItem("user")));
+    const [user, setUser] = useState(localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : JSON.parse(sessionStorage.getItem("user")))
+    useEffect(() => {
+        if (localStorage.getItem("user")) {
+            setCurrentUser(user);
+        } else if (sessionStorage.getItem("user")) {
+            setCurrentUser(user);
+        }
+    }, [user])
+
+    //Navigate
+    const navigate = useNavigate();
+
+    //Authorization
+    if (currentUser == null || currentUser.role ==="Viewer") {
+        setTimeout(() => {
+            navigate("/");
+            toast.error("Không có quyền truy cập")
+        }, 150)
+    } else if (currentUser.role === "Manager") {
+        setTimeout(() => {
+            navigate("/manager/blogs");
+            toast.error("Không có quyền truy cập")
+        }, 150)
+    }
+
     return (
         <AdminLayout>
             <div className="content">

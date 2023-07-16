@@ -1,13 +1,16 @@
 import AdminLayout from "../layouts/AdminLayout"
-import React, { useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import '../styles/addNewBlogManager.css'
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2'
 import bcrypt from 'bcryptjs'
+import { useNavigate } from "react-router-dom"
 
 const AddNewBlogManager = () => {
+
+
     const [validated, setValidated] = useState(false);
     const [users, setUsers] = useState([]);
     const [email, setEmail] = useState();
@@ -17,6 +20,34 @@ const AddNewBlogManager = () => {
     const [gender, setGender] = useState();
     const [phone, setPhone] = useState();
     const [address, setAddress] = useState();
+
+    //Get current user
+    const [currentUser, setCurrentUser] = useState(localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : JSON.parse(sessionStorage.getItem("user")));
+    const [user, setUser] = useState(localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : JSON.parse(sessionStorage.getItem("user")))
+    useEffect(() => {
+        if (localStorage.getItem("user")) {
+            setCurrentUser(user);
+        } else if (sessionStorage.getItem("user")) {
+            setCurrentUser(user);
+        }
+    }, [user])
+
+    //Navigate
+    const navigate = useNavigate();
+
+    //Authorization
+    if (currentUser == null || currentUser.role ==="Viewer") {
+        setTimeout(() => {
+            navigate("/");
+            toast.error("Không có quyền truy cập")
+        }, 150)
+    } else if (currentUser.role === "Manager") {
+        setTimeout(() => {
+            navigate("/manager/blogs");
+            toast.error("Không có quyền truy cập")
+        }, 150)
+    }
+
     let id = 0;
     let role = "Manager";
     const handleSubmit = (event) => {
@@ -41,7 +72,6 @@ const AddNewBlogManager = () => {
                     confirmButtonText: 'Add'
                 })
                     .then((result) => {
-                        console.log(result);
                         if (result.isConfirmed) {
                             fetch('http://localhost:9999/users', {
                                 method: 'Post',
@@ -74,7 +104,6 @@ const AddNewBlogManager = () => {
         <AdminLayout>
             <div className="content add-new-manager">
                 <Container fluid >
-                    <ToastContainer />
                     <Container style={{ backgroundColor: "#fff" }} >
                         <Form className="add-form" noValidate validated={validated} onSubmit={handleSubmit}>
                             <Row>

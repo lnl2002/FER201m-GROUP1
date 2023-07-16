@@ -165,6 +165,24 @@ body {
     box-shadow: 0 2px  rgba(0,0,0,0.2);
 }
 
+.forgot-password {
+    cursor: pointer;
+}
+
+.forgot-password:hover {
+    color: #f2b705;
+    transition: all .3s ease ;
+}
+
+.page-404 {
+    height: 60vh;
+    width: 100%;
+}
+
+.error-image {
+    padding-top: 20px;
+}
+
 @keyframes changeColor {
     from {
         color: black;

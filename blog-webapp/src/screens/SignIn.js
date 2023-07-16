@@ -1,25 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { UserContext } from '../App';
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Form } from 'react-bootstrap';
 import bcrypt from 'bcryptjs'
 
-export const SignIn = ({ openSignUp, openForgotPassword ,hideForm }) => {
-    const { user, setUser } = useContext(UserContext);
+export const SignIn = ({ openSignUp, openForgotPassword ,hideForm, setUser }) => {
     const [validated, setValidated] = useState(false);
     const [users, setUsers] = useState([]);
     const [isRememberMe, setIsRememberMe] = useState(false);
 
     useEffect(() => {
-        fetch("http://localhost:9999/users")
+        fetch("http://localhost:9999/users?role=Viewer")
             .then(res => res.json())
             .then(data => setUsers(data))
     }, [])
 
-    const handleUpdateUser = (email) => {
-        setUser({ name: email });
-    };
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -46,11 +41,15 @@ export const SignIn = ({ openSignUp, openForgotPassword ,hideForm }) => {
             if (u) {
                 const bcryptEncode = bcrypt.genSaltSync(10);
                 const hashedPassword = bcrypt.hashSync(password, bcryptEncode);
-                handleUpdateUser(u.email);
-                if (isRememberMe) {
-                    localStorage.setItem("email", email)
-                    localStorage.setItem("password", hashedPassword)
+                const data = {
+                    email: email,
+                    role: u.role,
                 }
+                if (isRememberMe) {
+                    localStorage.setItem("user", JSON.stringify(data));
+                }
+                sessionStorage.setItem("user",JSON.stringify(data))
+                setUser(data);
                 setEmail("");
                 setPassword("");
                 setIsRememberMe(false);
@@ -112,7 +111,7 @@ export const SignIn = ({ openSignUp, openForgotPassword ,hideForm }) => {
                                 onChange={event => setIsRememberMe(event.target.checked)}
                                 label="Ghi nhớ đăng nhập"
                             />
-                            <strong  onClick={handleOpenForgotPassword}>Quên mật khẩu</strong>
+                            <strong  onClick={handleOpenForgotPassword} className="forgot-password">Quên mật khẩu</strong>
                         </div>
 
 

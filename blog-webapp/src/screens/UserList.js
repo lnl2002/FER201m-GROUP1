@@ -1,8 +1,11 @@
-import MenuBar from "../components/MenuBar";
-import DefaultLayout from "../layouts/DefaultLayout";
-import { useEffect, useState } from "react";
-import { Col, Row, Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useRef, useState } from "react";
+import { Form, Table } from 'react-bootstrap'
+import AdminLayout from "../layouts/AdminLayout";
+import 'datatables.net-dt/js/dataTables.dataTables.js';
+import 'datatables.net-dt/css/jquery.dataTables.css';
+import { toast } from 'react-toastify'
+import $ from 'jquery';
+import { useNavigate } from "react-router-dom";
 function UserList() {
   const styles = {
     contentDiv: {
@@ -13,115 +16,130 @@ function UserList() {
       width: "100%",
     },
   };
-  const [category, setCategory] = useState([]);
-    const [user, setUser] = useState([]);
-    const [feedback, setFeedback] = useState([]);
-    const [p, setBlog] = useState([]);
-    useEffect(() => {
-        fetch("http://localhost:9999/blogs")
-          .then((resp) => resp.json())
-          .then((data) => {
-            setBlog(data);
-          })
-          .catch((err) => {
-            console.log(err.message);
-          });
-      }, []);
-      useEffect(() => {
-        fetch("http://localhost:9999/categories")
-          .then((resp) => resp.json())
-          .then((data) => {
-            setCategory(data);
-          })
-          .catch((err) => {
-            console.log(err.message);
-          });
-      }, []);
-      useEffect(() => {
-        fetch("http://localhost:9999/users")
-          .then((resp) => resp.json())
-          .then((data) => {
-            setUser(data);
-          })
-          .catch((err) => {
-            console.log(err.message);
-          });
-      }, []);
-      useEffect(() => {
-        fetch("http://localhost:9999/feedbacks")
-          .then((resp) => resp.json())
-          .then((data) => {
-            setFeedback(data);
-          })
-          .catch((err) => {
-            console.log(err.message);
-          });
-      }, []);
-      //Delete event:
-  const handleDelete = (Id) => {
-    if (window.confirm("Do you remove product witdh ID" + Id)) {
-      fetch(`http://localhost:9997/users/${Id}`, {
-        method: "DELETE",
-      }).then(() => {
-        window.location.reload();
-      });
-    }
-  };
-  return (
-    <DefaultLayout>
-      
 
-      <div style={styles.contentDiv}>
-        <MenuBar></MenuBar>
-        <div style={styles.contentMargin}>
-        <Row>
-      <Col xs={12}>
-        <Row>
-          <Col style={{ textAlign: "center" }}>
-            <h2>List User</h2>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Table>
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>Email</th>
-                  <th>Pass</th>
-                  <th>Role</th>
-                  <th>Name</th>
-                  <th>gender</th>
-                  <th>phone</th>
-                  <th>add</th>
-                  <th colSpan={2}>Action</th>
+  //Get current user
+  const [currentUser, setCurrentUser] = useState(localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : JSON.parse(sessionStorage.getItem("user")));
+  const [user, setUser] = useState(localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : JSON.parse(sessionStorage.getItem("user")))
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      setCurrentUser(user);
+    } else if (sessionStorage.getItem("user")) {
+      setCurrentUser(user);
+    }
+  }, [user])
+
+  //Navigate
+  const navigate = useNavigate();
+
+  //Authorization
+  if (currentUser == null || currentUser.role === "Viewer") {
+    setTimeout(() => {
+      navigate("/");
+      toast.error("Không có quyền truy cập")
+    }, 150)
+  } else if (currentUser.role === "Manager") {
+    setTimeout(() => {
+      navigate("/manager/blogs");
+      toast.error("Không có quyền truy cập")
+    }, 150)
+  }
+
+  const [users, setUsers] = useState([]);
+  const tableRef = useRef(null);
+
+  useEffect(() => {
+    fetch("http://localhost:9999/users?role=Manager")
+      .then((resp) => resp.json())
+      .then((data) => {
+        setUsers(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (users.length > 0) {
+      $(tableRef.current).DataTable();
+    }
+  }, [users]);
+
+  const handleIsActive = (event, userId) => {
+    let choosed = event.target.value === "active" ? true : false;
+
+    fetch(`http://localhost:9999/users/${userId}`, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        isActive: choosed
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then(
+        toast.success("Cập nhật trạng thái thành công")
+      )
+      .catch(err => toast.error("Đã có lỗi xảy ra, Vui lòng thử lại sau"))
+  }
+  return (
+    <AdminLayout>
+      <div className="content">
+        <Table
+          id="managerTable"
+          ref={tableRef}
+          className="display table-bordered"
+          style={{ width: "100%" }}
+          striped
+          hover
+        >
+          <thead >
+            <tr>
+              <th>ID</th>
+              <th>Email</th>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Phone</th>
+              <th>Adress</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              users.map(user =>
+                <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>
+                    {user.email}
+                  </td>
+                  <td>
+                    {
+                      user.name
+                    }
+                  </td>
+                  <td>
+                    {user.gender}
+                  </td>
+                  <td>
+                    {user.phone}
+                  </td>
+                  <td>
+                    {user.address}
+                  </td>
+
+                  <td>
+                    <Form.Select onChange={(event) => handleIsActive(event, user.id)}>
+                      <option value="active" selected={user.isActive}>Active</option>
+                      <option value="inactive" selected={!user.isActive}>Inactive</option>
+                    </Form.Select>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {user.map((p) => (
-                  <tr key={p.id}>
-                    <td>{p.id}</td>
-                    <td>{p.email}</td>
-                    <td>{p.password}</td>
-                    <td>{p.role}</td>                 
-                    <td>{p.name}</td>
-                    <td>{p.gender}</td>
-                    <td>{p.phone}</td>
-                    <td>{p.address}</td>
-                    <td>
-                      <Link to={"/"} onClick={() => handleDelete(p.Id)}>Delete</Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </Col>
-        </Row>
-      </Col>
-    </Row>
-        </div>
+              )
+            }
+
+          </tbody>
+        </Table>
       </div>
-    </DefaultLayout>
+    </AdminLayout>
   );
 }
 

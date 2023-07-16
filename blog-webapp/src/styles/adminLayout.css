@@ -15,7 +15,7 @@ body {
 }
 
 .left-bar {
-    background-color: #fff;
+    background-color: white;
     min-height: 100vh;
     min-width: 310px;
 }
@@ -24,12 +24,29 @@ body {
     width: calc(100% - 310px) !important;
     background-color: #fafbfc;
     width: 100%;
-    text-align: center;
     height: 67.75px;
     box-shadow: 
     0 5px 3px rgba(4, 9, 20, 0.05);
     z-index: 99;
     top: 0px;
+    text-align: end;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.current-user {
+    margin-right: 40px;
+    cursor: pointer;
+}
+
+.name {
+    margin-left: 10px;
+}
+
+.current-user:hover {
+    color: #f2b705;
+    transition: all .3s ease ;
 }
 
 .bar-header {
@@ -100,4 +117,9 @@ body {
     padding: 20px;
     height: 100%;
     margin-top: 67.75px;
+}
+
+.active-admin {
+    background: #e0f3ff;
+    color: #3f6ad8;
 }

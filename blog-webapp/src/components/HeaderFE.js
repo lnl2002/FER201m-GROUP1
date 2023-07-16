@@ -36,21 +36,27 @@ export default function HeaderFE() {
         setShow(true)
         setFormType("forgot-password")
     }
+
     const hideForm = () => {
         setShow(false);
         setFormType("");
     }
 
     const [currentUser, setCurrentUser] = useState();
-    const { user, setUser } = useContext(UserContext);
+    const [user, setUser] = useState(localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : JSON.parse(sessionStorage.getItem("user")))
     useEffect(() => {
-        setCurrentUser(user)
+        if(localStorage.getItem("user")) {
+            setCurrentUser(user);
+        } else if(sessionStorage.getItem("user")) {
+            setCurrentUser(user);
+        }
     }, [user])
 
     const [showLogout, setShowLogout] = useState(false);
     const handleLogout = () => {
         setShowLogout(true);
-        setUser("");
+        localStorage.removeItem("user")
+        sessionStorage.removeItem("user")
         setTimeout(() => {
             setShowLogout(false)
         }, 2500)
@@ -58,13 +64,10 @@ export default function HeaderFE() {
     }
 
     //Search
-    
     const handleSearch = (event) => {
         const form = event.currentTarget;
         if(search === ''){
             event.preventDefault();
-            console.log("khong");
-
         } else {
             event.preventDefault();
             navigate(`/search/${search}`  );
@@ -95,14 +98,13 @@ export default function HeaderFE() {
                         </Nav>
 
                         <Nav className='col-md-6 contact'>
-                            <Nav.Link href="#home" className='contact-detail'> <ion-icon name="business-outline"></ion-icon>  Liên hệ</Nav.Link>
-                            <Nav.Link href="#home" className='contact-detail'> <ion-icon name="people-outline"></ion-icon>  Về chúng tôi</Nav.Link>
+                            <Nav.Link href='/contact' className='contact-detail'> <ion-icon name="business-outline"></ion-icon>  Liên hệ</Nav.Link>
+                            <Nav.Link href="/about" className='contact-detail'> <ion-icon name="people-outline"></ion-icon>  Về chúng tôi</Nav.Link>
                             {
                                 currentUser == null &&
                                 <>
                                     <Nav.Link href="#home" className='contact-detail' onClick={openSignUp}> <ion-icon name="mail-outline"></ion-icon> Đăng ký</Nav.Link>
                                     <Nav.Link href="#home" className='contact-detail' onClick={openSignIn}> <ion-icon name="mail-outline"></ion-icon> Đăng nhập</Nav.Link>
-                                    <Nav.Link href="#home" className='contact-detail' onClick={openForgotPassword}> <ion-icon name="mail-outline"></ion-icon> for</Nav.Link>
                                 </>
                             }
                             {
@@ -124,11 +126,11 @@ export default function HeaderFE() {
                                 }
                                 {
                                     formType === "sign-in" &&
-                                    <SignIn openSignUp={openSignUp} hideForm={hideForm} />
+                                    <SignIn openSignUp={openSignUp} hideForm={hideForm} openForgotPassword={openForgotPassword} setUser={setUser}/>
                                 }
                                 {
                                     formType === "forgot-password" &&
-                                    <ForgotPassword openForgotPassword={openForgotPassword} hideForm={hideForm} />
+                                    <ForgotPassword openForgotPassword={openForgotPassword} hideForm={hideForm} openSignIn={openSignIn}/>
                                 }
                             </Modal.Body>
                         </Modal>
@@ -141,7 +143,7 @@ export default function HeaderFE() {
                     {
                         categories.map(category =>
                             <li>
-                                <NavLink to={"/" + category.id} className={({ isActive }) => isActive ? 'active-category' : ''} >
+                                <NavLink to={"/filter/" + category.id} className={({ isActive }) => isActive ? 'active-category' : ''} >
                                     {category.categoryName}
                                 </NavLink>
                             </li>

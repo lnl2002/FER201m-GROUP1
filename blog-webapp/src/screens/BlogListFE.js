@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -31,6 +31,8 @@ const BlogListFE = () => {
         }
     };
 
+    const navigate = useNavigate();
+    
     const handleFilter = (page) => {
         var url = `http://localhost:9999/blogs/?_sort=id&_page=${page}&_limit=5&categoryId=${cid}`;
         fetch(url)
@@ -39,14 +41,21 @@ const BlogListFE = () => {
                 setTotalPages(Math.ceil(totalCount / 10));
                 return res.json();
             })
-            .then(data => setBlogs(data))
+            .then(data => {
+                if(data.length !== 0) {
+                    setBlogs(data)
+                } else {
+                    navigate("/404page")
+                }
+                
+            })
             .catch((err) => toast.error(err));
     }
 
     useEffect(
         () => {
             handleFilter(currentPage);
-        }, [currentPage]
+        }, [currentPage,cid]
     )
 
     useEffect(() => {
@@ -54,7 +63,6 @@ const BlogListFE = () => {
             .then(res => res.json())
             .then(data => {
                 data = data.find(category => category.id == cid)
-                console.log(data);
                 setCategory(data);
             })
     }, [cid])
@@ -96,12 +104,12 @@ const BlogListFE = () => {
                                         <div className='item-blog d-flex' key={blog.id}>
                                             <a href={`blogs/detail/${blog.id}`} className='img-container'>
                                                 <picture>
-                                                    <img src={blog.thumbnail}></img>
+                                                    <img src={"../" + blog.thumbnail}></img>
                                                 </picture>
                                             </a>
                                             <div className='text-container h6'>
 
-                                                <Link to={`/${category.id}`} className="text-uppercase font-weight-bold text-decoration-none list-unstyled blog-category" >
+                                                <Link to={`/filter/${category.id}`} className="text-uppercase font-weight-bold text-decoration-none list-unstyled blog-category" >
                                                     {
                                                         category.categoryName
                                                     }
@@ -141,7 +149,7 @@ const BlogListFE = () => {
                         <Col sm={4} lg={3} style={{ paddingBottom: "40px" }}>
                             <aside id="sidebar" >
                                 <div className='blog-menu'>
-                                    <img src='assets/images/menu.png' />
+                                    <img src='../assets/images/menu.png' />
                                     <div class="middle-menu">
                                         <p class="h4"><a style={{ color: "#070707" }} title="Cách làm bánh tét chiên đoàn viên cùng gia đình ngày Tết" href="https://yummyday.vn/banh-tet-chien-932?rel=menu">Bánh tét chiên</a></p>
                                         <p class="h4"><a style={{ color: "#070707" }} title="Cách làm đậu hũ chiên sả ớt thơm ngon tại nhà" href="https://yummyday.vn/dau-hu-chien-sa-42?rel=menu">Đậu hũ chiên sả</a></p>
@@ -149,7 +157,7 @@ const BlogListFE = () => {
                                         <p class="h4"><a style={{ color: "#070707" }} title="Cách nấu món lẩu bò đúng điệu cực kỳ hấp dẫn cho ngày mưa" href="https://yummyday.vn/lau-bo-71?rel=menu">Lẩu bò</a></p>
                                         <p class="h4"><a style={{ color: "#070707" }} title="Đổi khẩu vị với món nộm thịt bò hành tây thơm ngon kiểu Thái" href="https://yummyday.vn/nom-thit-bo-hanh-tay-35?rel=menu">Nộm thịt bò hành tây</a></p>
                                     </div>
-                                    <img src='assets/images/footer_menu.png' />
+                                    <img src='../assets/images/footer_menu.png' />
                                 </div>
                             </aside>
                         </Col>

@@ -416,11 +416,12 @@
       "id": 9,
       "email": "user1@example.com",
       "password": "Password1",
-      "role": "Viewer",
+      "role": "Manager",
       "name": "Manager Name",
       "gender": "Female",
       "phone": "1234567890",
-      "address": "Manager Address"
+      "address": "Manager Address",
+      "isActive": true
     },
     {
       "id": 10,
@@ -440,54 +441,8 @@
       "name": "Manager Name",
       "gender": "Female",
       "phone": "1234567890",
-      "address": "Manager Address"
-    },
-    {
-      "email": "laingoclam3112@gmail.com",
-      "password": "$2a$10$55D7OBSvQ23CmCxfrAUG3ekjLxESS2v.GYBl2nL9qWI1KT.UfVq1C",
-      "name": "Lam Lai",
-      "gender": "Male",
-      "phone": "0984068859",
-      "address": "FPT university",
-      "role": "Manager",
-      "id": 4,
-      "token": "eaeadc86-7959-4a59-a475-c5b42af91e26"
-    },
-    {
-      "id": 5,
-      "email": "laingoclam3112@gmail.com",
-      "password": "lnl31122002",
-      "name": "Lam Lai",
-      "gender": "Female",
-      "phone": "0984068859",
-      "address": "FPT university",
-      "role": "Manager"
-    },
-    {
-      "id": 6,
-      "email": "laingoclam3112@gmail.com",
-      "password": "12345678L",
-      "name": "Lam Lai",
-      "gender": "Male",
-      "phone": "0984068859",
-      "address": "FPT university",
-      "role": "Manager"
-    },
-    {
-      "id": 7,
-      "email": "laingoclam3112@gmail.com",
-      "password": "12345678L",
-      "name": "Lam Lai",
-      "gender": "Male",
-      "phone": "0984068859",
-      "address": "FPT university",
-      "role": "Manager"
-    },
-    {
-      "id": 12,
-      "email": "laingoclam3112@gmail.com",
-      "password": "$2a$10$1fC/stzdRJMe.nNI1MPkdeiH9hebN1LTziO5WPQvIvLvQ.SJ7cBAS",
-      "role": "Viewer"
+      "address": "Manager Address",
+      "isActive": true
     },
     {
       "id": 13,
@@ -506,6 +461,26 @@
       "email": "lamlnhe161656@fpt.edu.vn",
       "password": "$2a$10$FgiYGz.URJ7KChStQ49W4e/k7vbaXK/xiWsVmXR.GKcqVdUjx8HZ.",
       "role": "Viewer"
+    },
+    {
+      "id": 16,
+      "email": "phuongtqhe176459@fpt.edu.vn",
+      "password": "$2a$10$JPlaYXLTDz7uYg4hYXVWeeh1X1XlgBtTXDtwubrrG8xgv6uD5R/qu",
+      "role": "Manager",
+      "name": "Hieu Nguyen",
+      "gender": "Male",
+      "phone": "0912198178",
+      "address": "FPT university"
+    },
+    {
+      "id": 17,
+      "email": "laingoclam3112@gmail.com",
+      "password": "$2a$10$o8xoIk2DtZFK0oQ7JcEVxeN/OeQJEdnixfGDehKci8HH9owff3Lyi",
+      "name": "Lam Lai",
+      "gender": "Male",
+      "phone": "0984068859",
+      "address": "FPT university",
+      "role": "Admin"
     }
   ],
   "feedbacks": [
