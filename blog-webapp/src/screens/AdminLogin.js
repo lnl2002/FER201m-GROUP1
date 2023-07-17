@@ -59,7 +59,7 @@ const AdminLogin = () => {
                     if (u.role === "Admin") {
                         navigate("/admin/managers");
                     } else {
-                        navigate("/manager/blogs");
+                        navigate("/manager/bloglist");
                     }
                 }, 1000)
 

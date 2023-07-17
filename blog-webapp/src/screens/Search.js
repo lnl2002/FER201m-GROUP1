@@ -50,8 +50,8 @@ const Search = () => {
                                     blogs.map(blog =>
                                         <div className='item-blog d-flex' key={blog.id}>
                                             <a href={`blogs/detail/${blog.id}`} className='img-container'>
-                                                <picture>
-                                                    <img src={"../" + blog.thumbnail}></img>
+                                                <picture dangerouslySetInnerHTML={{ __html: blog.thumbnail }}>
+                                                    {/* <img dangerouslySetInnerHTML={{ __html: blog.thumbnail }}></img> */}
                                                 </picture>
                                             </a>
                                             <div className='text-container h6'>
