@@ -44,6 +44,7 @@ export const SignIn = ({ openSignUp, openForgotPassword ,hideForm, setUser }) =>
                 const data = {
                     email: email,
                     role: u.role,
+                    id: u.id
                 }
                 if (isRememberMe) {
                     localStorage.setItem("user", JSON.stringify(data));

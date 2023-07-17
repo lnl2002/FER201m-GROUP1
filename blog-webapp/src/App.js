@@ -8,6 +8,9 @@ import CopyrightPage from './screens/CopyrightPage';
 import AboutPage from './screens/AboutPage';
 import AddNewBlogManager from './screens/AddNewBlogManager';
 import FeedbackList from './screens/FeedbackList';
+import Bloglist from './screens/Bloglist'
+import AddBlog from './screens/AddBlog'
+import Edit from './screens/Edit'
 import { createContext, useState } from 'react';
 import BlogListFE from './screens/BlogListFE';
 import ResetPassword from './screens/ResetPassword';
@@ -36,6 +39,9 @@ function App() {
           <Route path='/search/:search' element={<Search/>}/>
           <Route path='/manage' element={<AdminLogin/>}/>
           <Route path='*' element={<Page404/>}/>
+          <Route path="/manager/bloglist" element={<Bloglist/>} />
+        <Route path="/manager/bloglist/addblog" element={<AddBlog/>} />
+        <Route path="/manager/bloglist/edit/:id" element={<Edit/>} />
         </Routes>
 
       </BrowserRouter>

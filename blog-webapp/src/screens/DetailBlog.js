@@ -10,15 +10,26 @@ import { useNavigate } from "react-router-dom";
 export default function DetailBlog() {
     const { pid } = useParams();
     const [category, setCategory] = useState([]);
-    const [user, setUser] = useState([]);
     const [feedback, setFeedback] = useState([]);
+    const [user, setUser] = useState([]);
     const [p, setBlog] = useState([]);
     const navigate = useNavigate();
+    //Get current user
+    const [currentUser, setCurrentUser] = useState(localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : JSON.parse(sessionStorage.getItem("user")));
+    const [userA, setUserA] = useState(localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : JSON.parse(sessionStorage.getItem("user")))
+    useEffect(() => {
+        if (localStorage.getItem("user")) {
+            setCurrentUser(userA);
+        } else if (sessionStorage.getItem("user")) {
+            setCurrentUser(userA);
+        }
+    }, [userA])
+
     const [formData, setFormData] = useState({
-        userId: "",
-        blogId: "",
+        userId: currentUser.id,
+        blogId :  parseInt(pid),
         content: "",
-        rate: "",
+        rate: "+<span style={{ color: 'red' }}>&#9733;</span>" ,
     });
 
     useEffect(() => {
@@ -55,7 +66,7 @@ export default function DetailBlog() {
     }, []);
 
     useEffect(() => {
-        fetch("http://localhost:9999/feedbacks")
+        fetch("http://localhost:9999/feedbacks?blogId="+pid)
             .then((resp) => resp.json())
             .then((data) => {
                 setFeedback(data);
@@ -68,7 +79,7 @@ export default function DetailBlog() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch("http://localhost:9997/feedbacks", {
+            const response = await fetch("http://localhost:9999/feedbacks", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -170,14 +181,24 @@ export default function DetailBlog() {
                             </div>
 
                             <div class="col-sm-6">
+                            {/* <label className="mb-3">
+                                    <input
+                                        type="text"
+                                        placeholder="nhập tên"
+                                        value={formData.name}
+                                        onChange={(e) => handleChange('name', e.target.value)}
+                                        required
+                                    />
+                                </label> */}
                                 <label className="mb-3">
                                     <input
                                         type="number"
                                         placeholder=" Đánh giá bài viết(1->5)"
                                         value={formData.rate}
-                                        onChange={(e) => handleChange('rate', e.target.value)}
+                                        onChange={(e) => handleChange('rate', parseInt(e.target.value))}
                                         required
                                     />
+                                    {(formData.rate<1 || formData.rate>5) && <label style={{ color: 'red' }}>nhập từ[1-5]</label>}
                                 </label>
                                 <br />
                                 <label className="mb-3">
@@ -201,20 +222,23 @@ export default function DetailBlog() {
  <Table>
  <thead>
                 <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
+                  <th>Người đăng</th>
+                  <th>nội dung bình luận </th>
+                  <th>Đánh giá trên 5 <span style={{ color: 'red' }}>&#9733;</span></th>
                  
                 </tr>
               </thead>
               <tbody>
               {feedback.map((u) => (
                   <tr key={(u.id)}>
-                     <td>{user.map((s) => (s.id === u.userId && p.id === u.blogId ? s.name :""))}</td>
+                     <td>{user.map((s) => (s.id === u.userId && p.id === u.blogId ? s.email :""))}</td>
+                     
                     <td>{(p.id === u.blogId ? u.content:"")}</td>
-                    <td>{user.map((s) =>(s.id === u.userId && p.id === u.blogId ? u.rate:""))} <span style={{ color: 'red' }}>&#9733;</span></td>
+                    <td> {Array.from({ length: u.rate }, (_, index) => (
+                                            <ion-icon key={index} name="star" style={{ color: "#f2b705" }}></ion-icon>
+                                        ))}</td>
                     
-                      
+                    
                   </tr>
                 ))}
               </tbody>
